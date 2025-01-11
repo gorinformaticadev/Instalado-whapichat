@@ -6,9 +6,9 @@ https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ
 
 Um sistema para gestão de atendimento multicanais centralizado.
 
-Usuário Painel SaaS: super@flowdeskpro.io senha: 123456
+Usuário Painel SaaS: super@SEUDOMINIO senha: 123456
 
-Usuário normal: admin@flowdeskpro.io senha: 123456
+Usuário normal: admin@SEUDOMINIO senha: 123456
 
 **IMPORTANTE**: não garantimos que a utilização desta ferramenta não irá gerar bloqueio nas contas utilizadas. São bots que em sua maioria utilizam APIs secundarias para comunicação com os fornecedores dos serviços. Use com responsabilidade!
 
@@ -52,7 +52,10 @@ Depois reniciar seguir com a instalacao
 cd /root
 ```
 ```bash
-git clone https://github.com/Elton-Coelho/instalador-flowdeskpro.git instalador
+apt install git
+```
+```bash
+git clone https://github.com/gorinformaticadev/Instalado-whapichat instalador
 ```
 Editar dados com seus dados, com nano para salvar aperta Ctrl + x
 ```bash
