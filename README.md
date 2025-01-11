@@ -62,13 +62,13 @@ Editar dados com seus dados, com nano para salvar aperta Ctrl + x
 nano ./instalador/config
 ```
 ```bash
-sudo chmod +x ./instalador/whapichat
+sudo chmod +x ./instalador/install
 ```
 ```bash
 cd ./instalador
 ```
 ```bash
-sudo ./whapichat
+sudo ./install
 ```
 
 ## Problemas conexão whatsapp? ##
