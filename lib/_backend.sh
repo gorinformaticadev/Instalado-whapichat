@@ -36,11 +36,17 @@ backend_db_create() {
                 --appendonly yes \
                 --requirepass "${redis_pass}"
 
-    docker run --name rabbitmq-whapichat \
-                -p 5672:5672 -p 15672:15672 \
+    docker run --name rabbitmq-${nome_instancia} \
+                -e RABBITMQ_DEFAULT_USER=admin \
+                -e RABBITMQ_DEFAULT_PASS=${deploy_password} \
+                -e RABBITMQ_ERLANG_COOKIE='cookiesecret' \
+                -p 5672:5672 \
+                -p 15672:15672 \
+                -p 25672:25672 \
                 --restart=always \
-                --hostname rabbitmq \
-                -v /data:/var/lib/rabbitmq rabbitmq:3.11.5-management
+                --hostname rabbitmq-${nome_instancia} \
+                -v /data/rabbitmq:/var/lib/rabbitmq \
+                -d rabbitmq:3.11.5-management
 
   docker run -d --name portainer \
                 -p 9000:9000 -p 9443:9443 \
@@ -139,6 +145,68 @@ EOF
 EOF
 
   sleep 2
+
+# Cria permissão do Superuser
+  admin_backend_url=$backend_url
+  sudo su - deploy << EOF
+
+  cat > /home/deploy/$instancia/backend/src/middleware/isAuthAdmin.ts << 'END'
+  import { verify } from "jsonwebtoken";
+  import { Request, Response, NextFunction } from "express";
+  
+  import AppError from "../errors/AppError";
+  import authConfig from "../config/auth";
+  import User from "../models/User";
+  
+  interface TokenPayload {
+    id: string;
+    username: string;
+    profile: string;
+    tenantId: number;
+    iat: number;
+    exp: number;
+  }
+  
+  const isAuthAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    const authHeader = req.headers.authorization;
+    const adminDomain = process.env.ADMIN_DOMAIN;
+  
+    if (!authHeader) {
+      throw new AppError("Token was not provided.", 403);
+    }
+    if (!adminDomain) {
+      throw new AppError("Not exists admin domains defined.", 403);
+    }
+  
+    const [, token] = authHeader.split(" ");
+  
+    try {
+      const decoded = verify(token, authConfig.secret);
+      const { id, profile, tenantId } = decoded as TokenPayload;
+      const user = await User.findByPk(id);
+      if (!user || user.email.indexOf(adminDomain) === 1) {
+        throw new AppError("Not admin permission", 403);
+      }
+  
+      req.user = {
+        id,
+        profile,
+        tenantId
+      };
+    } catch (err) {
+      throw new AppError("Invalid token or not Admin", 403);
+    }
+  
+    return next();
+  };
+  
+  export default isAuthAdmin;
+
+END
+EOF
+
+  sleep 2
+
 }
 
 #######################################
@@ -212,8 +280,8 @@ MIN_SLEEP_INTERVAL=2000
 MAX_SLEEP_INTERVAL=5000
 
 # dados do RabbitMQ / Para não utilizar, basta comentar a var AMQP_URL
-# ABBITMQ_DEFAULT_PASS=${rabbitmq_pass}
-AMQP_URL='amqp://guest:guest@127.0.0.1:5672?connection_attempts=5&retry_delay=5'
+ABBITMQ_DEFAULT_PASS=${deploy_password}
+# AMQP_URL='amqp://guest:guest@127.0.0.1:5672?connection_attempts=5&retry_delay=5'
 
 # api oficial (integração em desenvolvimento)
 API_URL_360=https://waba-sandbox.360dialog.io
