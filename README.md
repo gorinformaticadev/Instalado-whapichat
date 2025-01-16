@@ -1,6 +1,6 @@
-[![Grupo do WhatsApp](https://img.shields.io/badge/Grupo_Whatsapp-whapichat-blue)](https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ)
+[![Grupo do WhatsApp](https://img.shields.io/badge/Grupo_Whatsapp-whapichat-blue)](http://wa.me/5561996565362)
 
-https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ
+http://wa.me/5561996565362
 
 # Whapichat com Painel SaaS
 
