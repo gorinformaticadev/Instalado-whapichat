@@ -1,18 +1,18 @@
 # URLs
-frontend_url=app.seusite.com.br
-backend_url=api.seusite.com.br
-urlprincipal_url=seusite.com.br
+frontend_url=app.seudominio.com.br
+backend_url=api.seudominio.com.br
+urlprincipal_url=seudominio.com.br
 
 # Senhas
-deploy_password=AKwWM4Qu2GRppJ7
-db_pass=AKwWM4Qu2GRppJ7
-redis_pass=AKwWM4Qu2GRppJ7
-rabbitmq_pass=AKwWM4Qu2GRppJ7
+deploy_password=SUASENHA
+db_pass=SUASENHA1
+redis_pass=SUASENHA2
+rabbitmq_pass=SUASENHA3
 
 # Usuarios
-db_name=whapichat
-db_user=whapichat
-nome_instancia=whapichat
+db_name=nomedb
+db_user=userdb
+nome_instancia=nomeinstancia
 
 # Email
 deploy_email=seuemail@gmail.com

@@ -84,10 +84,31 @@ software_update() {
   whatsappweb_update
 }
 
-2instancia_instalar() {
+instancia_instalar() {
   system_clone
   criar_banco_dados
   backend_set_env
+  backend_node_dependencies
+  backend_node_build
+  backend_db_migrate
+  backend_db_seed
+  backend_start_pm2
+  backend_nginx_setup
+  frontend_set_env
+  frontend_node_dependencies
+  frontend_node_build
+  frontend_serverjs
+  frontend_start_pm2
+  frontend_nginx_setup
+  system_nginx_restart
+  system_certbot_setup
+  system_success
+}
+
+instancia_instalar_arm() {
+  system_clone
+  criar_banco_dados
+  backend_set_env_arm
   backend_node_dependencies
   backend_node_build
   backend_db_migrate
@@ -147,7 +168,7 @@ inquiry_options() {
        exit
        ;;
 
-    2) 2instancia_instalar
+    2) instancia_instalar
        exit
        ;;
 
@@ -155,7 +176,7 @@ inquiry_options() {
        exit
        ;;
 
-    4) 2instancia_instalar_arm
+    4) instancia_instalar_arm
        exit
        ;;
 
