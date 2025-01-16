@@ -36,6 +36,7 @@ get_urls() {
   frontend_nginx_setup
   system_nginx_restart
   system_certbot_setup
+  iniciar_firewall
   system_success
 }
 
@@ -75,6 +76,7 @@ get_urls_arm() {
   frontend_nginx_setup
   system_nginx_restart
   system_certbot_setup
+  iniciar_firewall
   system_success
 }
 

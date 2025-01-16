@@ -28,7 +28,7 @@ backend_db_create() {
                 -v /data:/var/lib/postgresql/data \
                 -d postgres
 
-  docker run --name redis-whapichat \
+  docker run --name redis-${nome_instancia} \
                 -e TZ="America/Sao_Paulo" \
                 -p 6379:6379 \
                 --restart=always \
@@ -38,7 +38,7 @@ backend_db_create() {
 
     docker run --name rabbitmq-${nome_instancia} \
                 -e RABBITMQ_DEFAULT_USER=admin \
-                -e RABBITMQ_DEFAULT_PASS=${deploy_password} \
+                -e RABBITMQ_DEFAULT_PASS=${redis_pass} \
                 -e RABBITMQ_ERLANG_COOKIE='cookiesecret' \
                 -p 5672:5672 \
                 -p 15672:15672 \

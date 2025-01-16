@@ -7,18 +7,21 @@
 # Arguments:
 #   None
 #######################################
-system_create_user() {
+ssystem_create_user() {
   print_banner
-  printf "${WHITE} 💻 Agora, vamos criar o usuário para deploy...${GRAY_LIGHT}"
+  printf "${CYAN_LIGHT} 💻 Verificando se o usuário deploy existe...${NC}"
   printf "\n\n"
 
-  sleep 2
-
-  sudo su - root <<EOF
-  useradd -m -p $(openssl passwd $deploy_password) -s /bin/bash -G sudo deploy
-  usermod -aG sudo deploy
-  
-EOF
+  if id "deploy" &>/dev/null; then
+    printf "${CYAN_LIGHT} 🔄 Usuário deploy já existe, alterando a senha...${NC}"
+    printf "\n\n"
+    echo "deploy:${deploy_password}" | sudo chpasswd
+    sleep 2
+  else
+    printf "${CYAN_LIGHT} 💻 Criando o usuário deploy...${NC}"
+    printf "\n\n"
+    sudo useradd -m -p $(openssl passwd -1 ${deploy_password}) -s /bin/bash -G sudo deploy
+  fi
 
   sleep 2
 }
@@ -39,6 +42,9 @@ ufw allow 5432
 ufw allow 80
 ufw allow 443
 ufw allow 9000
+ufw allow 3100
+ufw allow 3000
+ufw allow 3333
 ufw --force enable
 echo "{\"iptables\": false}" > /etc/docker/daemon.json
 systemctl restart docker
@@ -109,7 +115,7 @@ EOF
 #######################################
 system_clone() {
   print_banner
-  printf "${WHITE} 💻 Baixando FlowDeskPro...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Baixando sistema...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
@@ -171,7 +177,7 @@ criar_banco_dados() {
   sleep 2
 
   sudo su - root <<EOF
-docker run --name postgresql-${nome_instancia} -e POSTGRES_USER=flow -e POSTGRES_PASSWORD=${pg_pass} -e TZ="America/Sao_Paulo" -p ${porta_postgre_intancia}:5432 --restart=always -v /data:/var/lib/postgresql/data -d postgres
+docker run --name postgresql-${nome_instancia} -e POSTGRES_USER=flow -e POSTGRES_PASSWORD=${db_pass} -e TZ="America/Sao_Paulo" -p ${porta_postgre_intancia}:5432 --restart=always -v /data:/var/lib/postgresql/data -d postgres
 
 EOF
 
@@ -191,15 +197,23 @@ system_docker_install() {
   sleep 2
 
   sudo su - root <<EOF
-  sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-  echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
- sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
- apt install -y docker-ce
+sudo su - root <<EOF
+  usermod -aG sudo deploy
+  apt install -y ca-certificates curl gnupg 
+  install -m 0755 -d /etc/apt/keyrings
+
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+  chmod a+r /etc/apt/keyrings/docker.gpg
+  
+  sh -c 'echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+  
+  sudo apt-get update
+  
+  apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  usermod -aG docker ${USER}
+
 EOF
 
   sleep 2
@@ -344,7 +358,7 @@ EOF
 #######################################
 system_set_user_mod() {
   print_banner
-  printf "${WHITE} 💻 Vamos permisoes docker...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Vamos dar permisoes docker...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
