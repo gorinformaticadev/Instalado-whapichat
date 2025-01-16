@@ -1,4 +1,4 @@
-[![Grupo do WhatsApp](https://img.shields.io/badge/Grupo_Whatsapp-FlowDeskPro-blue)](https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ)
+[![Grupo do WhatsApp](https://img.shields.io/badge/Grupo_Whatsapp-whapichat-blue)](https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ)
 
 https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ
 
@@ -78,7 +78,7 @@ Tente atualizar o Conector WWebJS whatsapp.js
 
 ## Como Atualizar o Sistema ##
 
-o nome padrão da instalação é flowdeskpro
+o nome padrão da instalação é whapichat
 
 ```bash
 cd /home/deploy/whapichat
@@ -87,10 +87,10 @@ cd /home/deploy/whapichat
 ou local da sua instalação
 
 ```bash
-sudo chmod +x ./update-flowdeskpro
+sudo chmod +x ./update-whapichat
 ```
 ```bash
-./update-flowdeskpro
+./update-whapichat
 ```
 
 
@@ -104,39 +104,39 @@ Utilizado UFW para saber mais de pesquisada no google.
 
 ### Para mudar nome do aplicativo:
 
-/home/deploy/flowdeskpro/frontend/quasar.conf
+/home/deploy/whapichat/frontend/quasar.conf
 
-/home/deploy/flowdeskpro/frontend/src/index.template.html
+/home/deploy/whapichat/frontend/src/index.template.html
 
 
 ### Para alterar  Icons, Logo e Favicon:
 
-/home/deploy/flowdeskpro/frontend/public
+/home/deploy/whapichat/frontend/public
 
 
 ### Para alterar cores:
 
-/home/deploy/flowdeskpro/frontend/src/css/app.sass
+/home/deploy/whapichat/frontend/src/css/app.sass
 
-/home/deploy/flowdeskpro/frontend/src/css/quasar.variables.sass
+/home/deploy/whapichat/frontend/src/css/quasar.variables.sass
 
 
 
 ### Alterar notificação sonora
 
-/home/deploy/flowdeskpro/frontend/src/assets
+/home/deploy/whapichat/frontend/src/assets
 
 
 
 ### Alterar titulo
 
-/home/deploy/flowdeskpro/frontend/src/index.template.html
+/home/deploy/whapichat/frontend/src/index.template.html
 
 
 
 ### Mudar nome do aplicativo:
 
-/home/deploy/flowdeskpro/frontend/quasar.conf
+/home/deploy/whapichat/frontend/quasar.conf
 
 
 
@@ -148,7 +148,7 @@ Utilizado UFW para saber mais de pesquisada no google.
 su deploy
 ```
 ```bash
-cd /home/deploy/flowdeskpro/frontend/
+cd /home/deploy/whapichat/frontend/
 ```
 ```bash
 export NODE_OPTIONS=--openssl-legacy-provider
@@ -171,6 +171,8 @@ Testar as alterações em aba anonima
 ```bash
 {{name}}
 ```
+Nome
+
 ```bash
 {{greeting}}
 ```
@@ -189,6 +191,8 @@ das 06 as 11
 ```bash
 {{protocol}}
 ```
+
+Protocolo
 
 ## Erros
 Erro Backend, não consegue logar
