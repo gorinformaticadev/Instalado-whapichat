@@ -9,19 +9,16 @@
 #######################################
 system_create_user() {
   print_banner
-  printf "${CYAN_LIGHT} 💻 Verificando se o usuário deploy existe...${NC}"
+  printf "${WHITE} 💻 Agora, vamos criar o usuário para deploy...${GRAY_LIGHT}"
   printf "\n\n"
 
-  if id "deploy" &>/dev/null; then
-    printf "${CYAN_LIGHT} 🔄 Usuário deploy já existe, alterando a senha...${NC}"
-    printf "\n\n"
-    echo "deploy:${deploy_password}" | sudo chpasswd
-    sleep 2
-  else
-    printf "${CYAN_LIGHT} 💻 Criando o usuário deploy...${NC}"
-    printf "\n\n"
-    sudo useradd -m -p $(openssl passwd -1 ${deploy_password}) -s /bin/bash -G sudo deploy
-  fi
+  sleep 2
+
+  sudo su - root <<EOF
+  useradd -m -p $(openssl passwd $deploy_password) -s /bin/bash -G sudo deploy
+  usermod -aG sudo deploy
+  
+EOF
 
   sleep 2
 }
@@ -110,9 +107,9 @@ EOF
 # Arguments:
 #   None
 #######################################
-system_unzip_izing() {
+system_clone() {
   print_banner
-  printf "${WHITE} 💻 Baixando whapichat...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Baixando FlowDeskPro...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
@@ -203,6 +200,31 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
  apt install -y docker-ce
+EOF
+
+  sleep 2
+}
+
+system_docker_install_arm() {
+  print_banner
+  printf "${WHITE} 💻 Instalando docker...${GRAY_LIGHT}"
+  printf "\n\n"
+
+  sleep 2
+
+  sudo su - root <<EOF
+  usermod -aG sudo deploy
+  apt install -y apt-transport-https \
+                 ca-certificates curl \
+                 software-properties-common
+
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+  add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu bionic stable"
+
+  apt install -y docker-ce
+  usermod -aG docker ${USER}
+
 EOF
 
   sleep 2
@@ -322,7 +344,7 @@ EOF
 #######################################
 system_set_user_mod() {
   print_banner
-  printf "${WHITE} 💻 Vamos às permisoes docker...${GRAY_LIGHT}"
+  printf "${WHITE} 💻 Vamos permisoes docker...${GRAY_LIGHT}"
   printf "\n\n"
 
   sleep 2
@@ -439,8 +461,8 @@ system_docker_start() {
   sudo su - root <<EOF
   docker stop $(docker ps -q)
   docker container start postgresql
-  docker container start redis-whapichat
-  docker container start rabbitmq-whapichat
+  docker container start redis-izing
+  docker container start rabbitmq
 EOF
 
   sleep 2
@@ -479,11 +501,11 @@ system_success() {
   printf "${GREEN} 💻 Instalação concluída com Sucesso...${NC}"
   printf "${CYAN_LIGHT}";
   printf "\n\n"
-  printf "Usuário painel SaaS: super@$urlprincipal_url"
+  printf "Usuário painel SaaS: super@flowdeskpro.io"
   printf "\n"
   printf "Senha: 123456"
   printf "\n"
-  printf "Usuário: admin@$urlprincipal_url"
+  printf "Usuário: admin@flowdeskpro.io"
   printf "\n"
   printf "Senha: 123456"
   printf "\n"
@@ -495,11 +517,11 @@ system_success() {
   printf "\n"
   printf "Senha Usuario Deploy: $deploy_password"
   printf "\n"
-  printf "Usuario do Banco de Dados: $db_user"
+  printf "Usuario do Banco de Dados: flow"
   printf "\n"
-  printf "Nome do Banco de Dados: $nome_instancia"
+  printf "Nome do Banco de Dados: postgres"
   printf "\n"
-  printf "Senha do Banco de Dados: $db_pass"
+  printf "Senha do Banco de Dados: $pg_pass"
   printf "\n"
   printf "Senha do Redis: $redis_pass"
   printf "\n"

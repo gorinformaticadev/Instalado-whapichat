@@ -1,14 +1,14 @@
-[![Grupo do WhatsApp](https://img.shields.io/badge/Grupo_Whatsapp-whapichat-blue)](http://wa.me/5561996565362)
+[![Grupo do WhatsApp](https://img.shields.io/badge/Grupo_Whatsapp-FlowDeskPro-blue)](https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ)
 
-http://wa.me/5561996565362
+https://chat.whatsapp.com/Ge1rB20Cp6JA5QbIX4ZulJ
 
-# Whapichat com Painel SaaS
+# FlowDeskPro com Painel SaaS
 
 Um sistema para gestão de atendimento multicanais centralizado.
 
-Usuário Painel SaaS: super@SEUDOMINIO senha: 123456
+Usuário Painel SaaS: super@flowdeskpro.io senha: 123456
 
-Usuário normal: admin@SEUDOMINIO senha: 123456
+Usuário normal: admin@flowdeskpro.io senha: 123456
 
 **IMPORTANTE**: não garantimos que a utilização desta ferramenta não irá gerar bloqueio nas contas utilizadas. São bots que em sua maioria utilizam APIs secundarias para comunicação com os fornecedores dos serviços. Use com responsabilidade!
 
@@ -52,23 +52,20 @@ Depois reniciar seguir com a instalacao
 cd /root
 ```
 ```bash
-apt install git
-```
-```bash
-git clone https://github.com/gorinformaticadev/Instalado-whapichat instalador
+git clone https://github.com/Elton-Coelho/instalador-flowdeskpro.git instaladorflowdeskpro
 ```
 Editar dados com seus dados, com nano para salvar aperta Ctrl + x
 ```bash
-nano ./instalador/config
+nano ./instaladorflowdeskpro/config
 ```
 ```bash
-sudo chmod +x ./instalador/install
+sudo chmod +x ./instaladorflowdeskpro/flowdeskpro
 ```
 ```bash
-cd ./instalador
+cd ./instaladorflowdeskpro
 ```
 ```bash
-sudo ./install
+sudo ./flowdeskpro
 ```
 
 ## Problemas conexão whatsapp? ##
@@ -78,19 +75,19 @@ Tente atualizar o Conector WWebJS whatsapp.js
 
 ## Como Atualizar o Sistema ##
 
-o nome padrão da instalação é whapichat
+o nome padrão da instalação é flowdeskpro
 
 ```bash
-cd /home/deploy/whapichat
+cd /home/deploy/flowdeskpro
 ```
 
 ou local da sua instalação
 
 ```bash
-sudo chmod +x ./update-whapichat
+sudo chmod +x ./update-flowdeskpro
 ```
 ```bash
-./update-whapichat
+./update-flowdeskpro
 ```
 
 
@@ -104,39 +101,39 @@ Utilizado UFW para saber mais de pesquisada no google.
 
 ### Para mudar nome do aplicativo:
 
-/home/deploy/whapichat/frontend/quasar.conf
+/home/deploy/flowdeskpro/frontend/quasar.conf
 
-/home/deploy/whapichat/frontend/src/index.template.html
+/home/deploy/flowdeskpro/frontend/src/index.template.html
 
 
 ### Para alterar  Icons, Logo e Favicon:
 
-/home/deploy/whapichat/frontend/public
+/home/deploy/flowdeskpro/frontend/public
 
 
 ### Para alterar cores:
 
-/home/deploy/whapichat/frontend/src/css/app.sass
+/home/deploy/flowdeskpro/frontend/src/css/app.sass
 
-/home/deploy/whapichat/frontend/src/css/quasar.variables.sass
+/home/deploy/flowdeskpro/frontend/src/css/quasar.variables.sass
 
 
 
 ### Alterar notificação sonora
 
-/home/deploy/whapichat/frontend/src/assets
+/home/deploy/flowdeskpro/frontend/src/assets
 
 
 
 ### Alterar titulo
 
-/home/deploy/whapichat/frontend/src/index.template.html
+/home/deploy/flowdeskpro/frontend/src/index.template.html
 
 
 
 ### Mudar nome do aplicativo:
 
-/home/deploy/whapichat/frontend/quasar.conf
+/home/deploy/flowdeskpro/frontend/quasar.conf
 
 
 
@@ -148,7 +145,7 @@ Utilizado UFW para saber mais de pesquisada no google.
 su deploy
 ```
 ```bash
-cd /home/deploy/whapichat/frontend/
+cd /home/deploy/flowdeskpro/frontend/
 ```
 ```bash
 export NODE_OPTIONS=--openssl-legacy-provider
@@ -171,8 +168,6 @@ Testar as alterações em aba anonima
 ```bash
 {{name}}
 ```
-Nome
-
 ```bash
 {{greeting}}
 ```
@@ -191,8 +186,6 @@ das 06 as 11
 ```bash
 {{protocol}}
 ```
-
-Protocolo
 
 ## Erros
 Erro Backend, não consegue logar
