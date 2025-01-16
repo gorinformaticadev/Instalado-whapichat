@@ -7,7 +7,7 @@
 # Arguments:
 #   None
 #######################################
-ssystem_create_user() {
+system_create_user() {
   print_banner
   printf "${CYAN_LIGHT} 💻 Verificando se o usuário deploy existe...${NC}"
   printf "\n\n"
