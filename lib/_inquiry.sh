@@ -144,41 +144,41 @@ inquiry_options() {
 
   case "${option}" in
     1) get_urls
-      exit
-      ;;
+       exit
+       ;;
 
     2) 2instancia_instalar
-      exit
-      ;;
+       exit
+       ;;
 
     3) get_urls_arm
-      exit
-      ;;
+       exit
+       ;;
 
     4) 2instancia_instalar_arm
-      exit
-      ;;
+       exit
+       ;;
 
     5) software_update
-      exit
-      ;;
+       exit
+       ;;
 	  
 	   6) izing_atualizar
-      exit
-      ;;
+       exit
+       ;;
 	  
      7) 
       ativar_firewall 
-      exit
-      ;;
+       exit
+       ;;
 	  
      8) 
-      desativar_firewall 
-      exit
-      ;;
+      desativar_firewall
+       exit
+       ;;
 
     *) exit
-      ;;
+       ;;
   esac
 }
 
