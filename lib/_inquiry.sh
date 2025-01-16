@@ -143,7 +143,7 @@ inquiry_options() {
   read -p "> " option
 
   case "${option}" in
-    1) get_urls ;;
+    1) get_urls
       exit
       ;;
 
@@ -151,7 +151,7 @@ inquiry_options() {
       exit
       ;;
 
-    3) get_urls_arm ;;
+    3) get_urls_arm
       exit
       ;;
 
@@ -177,7 +177,8 @@ inquiry_options() {
       exit
       ;;
 
-    *) exit ;;
+    *) exit
+      ;;
   esac
 }
 
