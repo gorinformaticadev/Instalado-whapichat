@@ -22,7 +22,6 @@ system_create_user() {
     printf "\n\n"
     sudo useradd -m -p $(openssl passwd -1 ${deploy_password}) -s /bin/bash -G sudo deploy
   fi
-EOF
 
   sleep 2
 }
